@@ -7,6 +7,7 @@ namespace XAMLens.Views
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModels.MainWindowViewModel();
         }
     }
 }

@@ -20,8 +20,8 @@
 		</Grid.RowDefinitions>
 
 		<ContentControl Grid.Row="0" Margin="10">
-			<TextBlock Text="Text" Foreground="White"/>
+			<TextBlock Text="{Binding XAMLText}" Foreground="White"/>
 		</ContentControl>
-		<TextBox Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap"/>
+		<TextBox Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding XAMLText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 	</Grid>
 </Window>
