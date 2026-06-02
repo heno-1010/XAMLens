@@ -19,9 +19,8 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<ContentControl Grid.Row="0" Margin="10">
-			<TextBlock Text="{Binding XAMLText}" Foreground="White"/>
-		</ContentControl>
-		<TextBox Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding XAMLText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+		<ContentControl Grid.Row="0" Margin="10" Content="{Binding PreviewControl}"/>
+			
+		<TextBox Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding XAMLText, Mode=TwoWay}"/>
 	</Grid>
 </Window>
