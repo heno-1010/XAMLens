@@ -3,6 +3,7 @@ using Avalonia.Markup.Xaml;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace XAMLens.ViewModels
 {
@@ -29,19 +30,11 @@ namespace XAMLens.ViewModels
                 if (_xamlText != value)
                 {
                     _xamlText = value;
-                    var xaml = value;
                     OnPropertyChanged();
 
                     try
                     {
-                        if (!xaml.Contains("xmlns="))
-                        {
-                            var firstSpace = xaml.IndexOf(' ');
-                            if(firstSpace > 0)
-                            {
-                                xaml = xaml.Insert(firstSpace, " xmlns=\"https://github.com/avaloniaui\"");
-                            }
-                        }
+                        var xaml = NormalizeXaml(value);
                         PreviewControl = AvaloniaRuntimeXamlLoader.Parse<Control>(xaml);
                     }
                     catch
@@ -50,6 +43,20 @@ namespace XAMLens.ViewModels
                     }
                 }
             }
+        }
+        private string NormalizeXaml(string xaml)
+        {
+            if(string.IsNullOrWhiteSpace(xaml))
+                return xaml;
+
+            var root = XElement.Parse(xaml);
+
+            if (!string.IsNullOrEmpty(root.Name.NamespaceName))
+                return xaml;
+
+            var newRoot = new XElement(XNamespace.Get("https://github.com/avaloniaui") + root.Name.LocalName, root.Attributes(),root.Nodes());
+            return newRoot.ToString();
+
         }
     }
 }
