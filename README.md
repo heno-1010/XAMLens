@@ -1,14 +1,15 @@
 # XAMLens
-Ultra-light realtime XAML previewer for Avalonia.
+**CodePen for XAML.**
 
-## Goals
-- Fast
-- Lightweight
-- Simple
-- Instant preview
+A lightweight XAML sandbox for rapid UI experimentation.
 
-## Current Status
-Early development.
+## Features
+
+* Instant XAML preview
+* No project creation required
+* Real XAML rendering (no custom syntax)
+* Binding experimentation without ViewModel implementation
+* Lightweight and fast startup
 
 ## License
 MIT
