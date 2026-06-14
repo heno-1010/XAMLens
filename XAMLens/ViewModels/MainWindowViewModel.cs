@@ -14,13 +14,25 @@ namespace XAMLens.ViewModels
 
 </Window>";
 
-        public Control? _previewControl;
+        private Control? _previewControl;
+        private string? _errorMessage;
+
         public Control? PreviewControl
         {
             get => _previewControl;
             set
             {
                 _previewControl = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
                 OnPropertyChanged();
             }
         }
@@ -40,11 +52,13 @@ namespace XAMLens.ViewModels
                         var xaml = ConvertWindowToUserControl(value);
                         xaml = NormalizeXaml(xaml);
                         PreviewControl = AvaloniaRuntimeXamlLoader.Parse<Control>(xaml);
+                        ErrorMessage = null;
                     }
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine(ex);
                         PreviewControl = null;
+                        ErrorMessage = ex.Message;
                     }
                 }
             }

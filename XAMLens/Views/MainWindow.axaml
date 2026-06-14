@@ -17,10 +17,12 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="2*"/>
 			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
 		<ContentControl Grid.Row="0" Margin="10" Content="{Binding PreviewControl}"/>
 			
 		<TextBox Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding XAMLText, Mode=TwoWay}"/>
+		<TextBlock Grid.Row="2" Text="{Binding ErrorMessage}" Foreground="Red"/>
 	</Grid>
 </Window>
