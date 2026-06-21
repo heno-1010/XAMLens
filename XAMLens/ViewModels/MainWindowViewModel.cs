@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace XAMLens.ViewModels
 {
@@ -108,13 +109,14 @@ namespace XAMLens.ViewModels
             var root = XElement.Parse(xaml);
             FindBindings(root);
         }
+
         private void FindBindings(XElement element)
         {
-            foreach (var attribute in element.Attributes())
+            foreach (var attribute in element.Attributes()) // XAMLの属性をチェック
             {
                 if (attribute.Value.StartsWith("{Binding"))
                 {
-                    System.Diagnostics.Debug.WriteLine(attribute.Value);
+                    System.Diagnostics.Debug.WriteLine(attribute.Value); // Bindingの内容を出力
                 }
             }
             foreach (var child in element.Elements())
