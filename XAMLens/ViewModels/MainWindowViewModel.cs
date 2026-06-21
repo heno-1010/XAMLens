@@ -49,8 +49,13 @@ namespace XAMLens.ViewModels
 
                     try
                     {
+                        // プレビュー用にWindowをUserControlに変換
                         var xaml = ConvertWindowToUserControl(value);
+                        // XAMLの名前空間を補完
                         xaml = NormalizeXaml(xaml);
+                        // バインディングを検索
+                        FindBindings(xaml);
+
                         PreviewControl = AvaloniaRuntimeXamlLoader.Parse<Control>(xaml);
                         ErrorMessage = null;
                     }
@@ -63,6 +68,7 @@ namespace XAMLens.ViewModels
                 }
             }
         }
+        // Windowをプレビュー用のUserControlに変換
         private string ConvertWindowToUserControl(string xaml)
         {
             if (string.IsNullOrWhiteSpace(xaml))
@@ -76,7 +82,7 @@ namespace XAMLens.ViewModels
             var newRoot = new XElement(root.Name.Namespace + "UserControl", root.Attributes(), root.Nodes());
             return newRoot.ToString();
         }
-
+        // XAMLの名前空間を補完
         private string NormalizeXaml(string xaml)
         {
             if (string.IsNullOrWhiteSpace(xaml))
@@ -95,6 +101,26 @@ namespace XAMLens.ViewModels
 
             return newRoot.ToString();
 
+        }
+
+        private void FindBindings(string xaml)
+        {
+            var root = XElement.Parse(xaml);
+            FindBindings(root);
+        }
+        private void FindBindings(XElement element)
+        {
+            foreach (var attribute in element.Attributes())
+            {
+                if (attribute.Value.StartsWith("{Binding"))
+                {
+                    System.Diagnostics.Debug.WriteLine(attribute.Value);
+                }
+            }
+            foreach (var child in element.Elements())
+            {
+                FindBindings(child);
+            }
         }
     }
 }
