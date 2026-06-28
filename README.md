@@ -1,5 +1,6 @@
 # XAMLens
 **Avalonia XAML live preview tool**  
+🚧 **Work in Progress**  
 Instantly render XAML without building or running a project.  
 You shouldn't need to build an application just to experiment with a View.
 
