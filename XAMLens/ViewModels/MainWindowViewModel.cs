@@ -117,6 +117,14 @@ namespace XAMLens.ViewModels
                 if (attribute.Value.StartsWith("{Binding"))
                 {
                     System.Diagnostics.Debug.WriteLine(attribute.Value); // Bindingの内容を出力
+                    var n = attribute.Value.IndexOf("g");
+                    System.Diagnostics.Debug.WriteLine(n);
+                    if(n != -1)
+                    {
+                        string result = attribute.Value.Substring(n + 1);
+                        result = result.Replace("}", "");
+                        System.Diagnostics.Debug.WriteLine(result);
+                    }
                 }
             }
             foreach (var child in element.Elements())
